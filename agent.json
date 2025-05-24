@@ -1,0 +1,28 @@
+{
+    "steps": [
+      {
+        "type": "voice",
+        "message": "Please state your name, contact details, and purpose of call"
+      },
+      {
+        "type": "collect",
+        "fields": [
+          {"name": "full_name", "question": "May I have your full name?"},
+          {"phone": "contact", "question": "Best number to reach you?"},
+          {"text": "purpose", "question": "How can we assist today?"}
+        ]
+      },
+      {
+        "type": "transfer",
+        "target": "sip:201@freepbx_ip:5060",
+        "onAnswer": {
+          "action": "play",
+          "message": "Call from ${full_name} regarding ${purpose}. Accept transfer?"
+        },
+        "onDecline": {
+          "action": "message",
+          "message": "Please leave detailed message for ${target_name}"
+        }
+      }
+    ]
+  }
